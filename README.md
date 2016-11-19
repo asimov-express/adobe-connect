@@ -454,8 +454,8 @@ If you discover any security related issues, please email jorge.sanchez.h@gmail.
 
 The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
 
-[Web Service API]https://helpx.adobe.com/adobe-connect/webservices/topics.html
-[Action Reference]https://helpx.adobe.com/adobe-connect/webservices/topics/action-reference.html
+[Web Service API]: https://helpx.adobe.com/adobe-connect/webservices/topics.html
+[Action Reference]: https://helpx.adobe.com/adobe-connect/webservices/topics/action-reference.html
 
 
 [ico-version]: https://img.shields.io/packagist/v/asimov-express/adobe-connect.svg?style=flat-square
