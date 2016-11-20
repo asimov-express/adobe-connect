@@ -54,7 +54,7 @@ class DummyApiServer
         $this->process = new Process($command);
         $this->process->start();
         usleep(2000000);
-        var_dump($this->process->getOutput());
+        var_dump($command);
     }
 
     /**
