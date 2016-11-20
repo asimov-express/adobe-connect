@@ -1,6 +1,6 @@
 <?php
 
-function main()
+function process_api_request()
 {
     $parameters = getParamsFromXML();
 

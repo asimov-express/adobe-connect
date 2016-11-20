@@ -2,4 +2,4 @@
 
 require_once("server_functions.php");
 
-main();
+process_api_request();
