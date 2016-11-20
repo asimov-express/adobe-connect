@@ -53,7 +53,7 @@ class DummyApiServer
         $command = $this->makeServerCommand();
         $this->process = new Process($command);
         $this->process->start();
-        usleep(500000);
+        usleep(2000000);
     }
 
     /**
@@ -89,10 +89,10 @@ class DummyApiServer
         $command = "";
         if ($this->isHHVM()) {
             $command = "hhvm -m server"
-                . " -d hhvm.server.type=proxygen"
+                . " -d hhvm.server.host={$this->host}"
                 . " -d hhvm.server.port={$this->port}"
                 . " -d hhvm.server.source_root={$this->root}"
-                . " -d hhvm.server.default_document = index.php";
+                . " -d hhvm.server.error_document404=index.php";
         } else {
             $command = "php -S {$this->host}:{$this->port} -t {$this->root}";
         }
