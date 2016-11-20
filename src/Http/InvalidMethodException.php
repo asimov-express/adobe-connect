@@ -20,10 +20,9 @@ class InvalidMethodException extends \Exception
     public function __construct($method, $message = '', $code = 0)
     {
         $this->method = $method;
-        if(!$message){
+        if (!$message) {
             $message = "The HTTP method {$this->method} is not allowed in this package, use POST instead.";
         }
         parent::__construct($message, $code);
     }
 }
- ?>
