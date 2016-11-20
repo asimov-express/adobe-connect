@@ -93,7 +93,8 @@ class DummyApiServer
                 . " -d hhvm.server.host={$this->host}"
                 . " -d hhvm.server.port={$this->port}"
                 . " -d hhvm.server.source_root={$this->root}"
-                . " -d hhvm.server.error_document404=index.php";
+                . " -d hhvm.server.error_document404=index.php"
+                . " -d hhvm.log.level=Verbose";
         } else {
             $command = "php -S {$this->host}:{$this->port} -t {$this->root}";
         }
