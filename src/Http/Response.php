@@ -21,7 +21,7 @@ class Response
      * Initilizes an instance of Response.
      *
      * @param resource $curl_resource Curl resource instance.
-     * @param string $result Response content.
+     * @param string $content Response content.
      */
     public function __construct($curl_resource, $content)
     {
