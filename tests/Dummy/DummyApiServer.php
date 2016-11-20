@@ -50,7 +50,7 @@ class DummyApiServer
      */
     public function start()
     {
-        $command = "php -S {$this->host}:{$this->port} -t {$this->root}";
+        $command = $this->makeServerCommand();
         $this->process = new Process($command);
         $this->process->start();
         usleep(500000);
@@ -77,5 +77,36 @@ class DummyApiServer
             throw new \Exception('The host name can not be modified while the server is running.');
         }
         $this->host = $host;
+    }
+
+    /**
+     * Uses the current information to create the server command.
+     *
+     * @return string
+     */
+    public function makeServerCommand()
+    {
+        $command = "";
+        if ($this->isHHVM()) {
+            $command = "hhvm -m server"
+                . " -d hhvm.server.type=proxygen"
+                . " -d hhvm.server.port={$this->port}"
+                . " -d hhvm.server.source_root={$this->root}"
+                . " -d hhvm.server.default_document = index.php";
+        } else {
+            $command = "php -S {$this->host}:{$this->port} -t {$this->root}";
+        }
+
+        return $command;
+    }
+
+    /**
+     * Return true if running on HHVM.
+     *
+     * @return bool
+     */
+    public function isHHVM()
+    {
+        return defined('HHVM_VERSION');
     }
 }
