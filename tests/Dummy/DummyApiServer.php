@@ -53,6 +53,7 @@ class DummyApiServer
         $command = "php -S {$this->host}:{$this->port} -t {$this->root}";
         $this->process = new Process($command);
         $this->process->start();
+        usleep(500000);
     }
 
     /**
