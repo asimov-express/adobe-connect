@@ -102,6 +102,7 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 
         // Status code is 400 because we are not sending the 'action' parameter.
         $this->assertEquals(400, $res->getStatusCode());
+        $this->assertEquals('Bad request', $res->getContent());
     }
 
     public function testUsesLoggerWhenSet()

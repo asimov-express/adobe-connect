@@ -5,7 +5,11 @@ function process_api_request()
     $parameters = getParamsFromXML();
 
     if (validateParams($parameters)) {
-        // Send predefined answer
+        http_response_code(200);
+        print_r($parameters);
+    } else {
+        http_response_code(400);
+        print("Bad request");
     }
 }
 
@@ -30,7 +34,6 @@ function getParamsFromXML()
 function validateParams($parameters)
 {
     if (!isset($parameters['action'])) {
-        http_response_code(400);
         return false;
     }
     return true;
