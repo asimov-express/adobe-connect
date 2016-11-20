@@ -1,2 +1,2 @@
 <?php
-    print('You must implement your own dummy index.php')
+    print('You must implement your own dummy index.php');
