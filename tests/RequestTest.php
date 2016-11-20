@@ -17,7 +17,7 @@ class RequestTest extends \PHPUnit_Framework_TestCase
      */
     public function testBuildsBasicRequestBody()
     {
-        $req = new Request('http://hostname/xml');
+        $req = new Request(static::getAdobeConnectApiUri());
 
         $req->addParameters([
             'param-1' => 'value-1'
@@ -32,7 +32,7 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 
     public function testSupportMultipleParameters()
     {
-        $req = new Request('http://hostname/xml');
+        $req = new Request(static::getAdobeConnectApiUri());
 
         $req->addParameter('a', 'a');
         $req->addParameter('b', 'b');
@@ -47,7 +47,7 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 
     public function testSupportSpecialCharacters()
     {
-        $req = new Request('http://hostname/xml');
+        $req = new Request(static::getAdobeConnectApiUri());
 
         $req->addParameter('a', '&');
         $req->addParameter('b', '"');
@@ -62,7 +62,7 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 
     public function testOverridesParameters()
     {
-        $req = new Request('http://hostname/xml');
+        $req = new Request(static::getAdobeConnectApiUri());
 
         $req->addParameters([
             'a' => 'a',
@@ -83,7 +83,7 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 
     public function testSetsContentTypeToApplicationXML()
     {
-        $req = new Request('http://localhost:8000/xml');
+        $req = new Request(static::getAdobeConnectApiUri());
 
         $headers = $req->getHeaders();
 
@@ -92,7 +92,7 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 
     public function testPerformsHttpCall()
     {
-        $req = new Request('http://localhost:8000/api/xml');
+        $req = new Request(static::getAdobeConnectApiUri());
 
         $req->addParameters([
             'a' => 'b'
@@ -106,7 +106,7 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 
     public function testUsesLoggerWhenSet()
     {
-        $req = new Request('http://localhost:8000/api/xml');
+        $req = new Request(static::getAdobeConnectApiUri());
 
         $req->addParameters([
             'a' => 'b'
@@ -124,7 +124,7 @@ class RequestTest extends \PHPUnit_Framework_TestCase
     {
         $this->expectException(InvalidMethodException::class);
 
-        $req = new Request('http://localhost:8000/api/xml');
+        $req = new Request(static::getAdobeConnectApiUri());
 
         $req->addParameters([
             'a' => 'b'

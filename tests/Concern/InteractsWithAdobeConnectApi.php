@@ -19,7 +19,7 @@ trait InteractsWithAdobeConnectApi
     /**
      * Port on which the server will listen.
      */
-    public static $port = 8000;
+    public static $port = 8003;
 
     /**
      * Server's root folder.
@@ -49,5 +49,15 @@ trait InteractsWithAdobeConnectApi
     public static function shoutdownApiServer()
     {
         static::$apiServer->stop();
+    }
+
+    /**
+     * Return the Adobe Connect API URI
+     */
+    public static function getAdobeConnectApiUri()
+    {
+        $host = static::$host;
+        $port = static::$port;
+        return "http://{$host}:{$port}/api/xml";
     }
 }
