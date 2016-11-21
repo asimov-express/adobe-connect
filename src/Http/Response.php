@@ -49,4 +49,14 @@ class Response
     {
         return $this->content;
     }
+
+    /**
+     * Return a SimpleXMLElement containing the response body.
+     *
+     * @return \SimpleXMLElement
+     */
+    public function getContentAsXml()
+    {
+        return new \SimpleXMLElement($this->content);
+    }
 }

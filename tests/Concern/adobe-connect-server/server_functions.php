@@ -4,12 +4,10 @@ function process_api_request()
 {
     $parameters = getParamsFromXML();
 
-    if (validateParams($parameters)) {
-        http_response_code(200);
-        print_r($parameters);
+    if (isset($parameters['action'])) {
+        respondToAction($parameters);
     } else {
-        http_response_code(400);
-        print("Bad request");
+        sendBadRequestResponse();
     }
 }
 
@@ -31,10 +29,64 @@ function getParamsFromXML()
     return $parameters;
 }
 
-function validateParams($parameters)
+function sendBadRequestResponse()
 {
-    if (!isset($parameters['action'])) {
-        return false;
+    sendResponse(400, 'Bad request');
+}
+
+function sendResponse($code, $content)
+{
+    http_response_code($code);
+    print($content);
+}
+
+function respondToAction($parameters)
+{
+
+    $action = $parameters['action'];
+
+    if (isValidAction($action)) {
+        $function_name = 'adobeConnect'. ucfirst($action);
+        call_user_func($function_name, $parameters);
+    } else {
+        $body = readData('invalid_action');
+        sendResponse(200, $body);
     }
-    return true;
+}
+
+function adobeConnectLogin($parameters)
+{
+    $login = $parameters['login'];
+    $password = $parameters['password'];
+
+    if ($login ==='fakeuser@example.com' && $password === 'secret') {
+        // Set-Cookie:BREEZESESSION=na5breezk72mn3prtcu9czm5;HttpOnly;domain=.adobeconnect.com;path=/
+        // Set-Cookie:BreezeCCookie=MAU7-9BPA-BD9L-TUHZ-YRSD-U64C-UGMP-R2B5; Path=/; HttpOnly
+        $body = readData('login_correct');
+        sendResponse(200, $body);
+    } else {
+        $body = readData('login_incorrect');
+        sendResponse(200, $body);
+    }
+}
+
+function adobeConnectLogout($parameters)
+{
+    $body = readData('logout_correct');
+    sendResponse(200, $body);
+}
+
+function readData($file)
+{
+    return file_get_contents(__DIR__."/data/{$file}.xml");
+}
+
+function isValidAction($action)
+{
+    $actions = [
+        'login' => true,
+        'logout' => true
+    ];
+
+    return isset($actions[$action]);
 }
